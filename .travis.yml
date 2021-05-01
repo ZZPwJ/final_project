@@ -1,5 +1,7 @@
 language: java
 before_script: cd final_project_backend
+before_install:
+  - chmod +x mvnw
 script: ./mvnw clean install
 jdk:
     -openjdk15
