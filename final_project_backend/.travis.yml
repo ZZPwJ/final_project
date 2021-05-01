@@ -1,4 +1,0 @@
-language: java
-script: ./mvnw clean install
-jdk:
-    -openjdk15
