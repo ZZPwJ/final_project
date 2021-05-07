@@ -1,0 +1,42 @@
+package pl.zzpwj.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.web.bind.annotation.*;
+import pl.zzpwj.model.Airport;
+import pl.zzpwj.services.AirportsService;
+
+import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+// Klasa na razie przykładowa, ma niewiele wspólnego z rzeczywistoscia,
+// stworzyłem po prostu szkielet i sprawdziłem jak działa. Z bazy H2
+// korzystałem, końcowo raczej nie będzie wykorzystywana.
+
+@RestController
+public class AirportsController {
+
+    @Autowired
+    private AirportsService airportsService;
+
+    @GetMapping(path="/airports", produces = APPLICATION_JSON_VALUE)
+    public List<Airport> getAllAirports() {
+        return airportsService.getAllAirports();
+    }
+
+    @GetMapping(path = "/airports/{id}", produces = APPLICATION_JSON_VALUE)
+    public Airport getAirport(@PathVariable long id) {
+        return airportsService.getAirport(id);
+    }
+
+    @PostMapping(path = "/airports", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public Airport addAirport(@RequestBody Airport airport) {
+        return airportsService.addAirport(airport);
+    }
+
+    @PutMapping(path = "/airports/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public Airport update(@PathVariable long id, @RequestBody Airport airport) {
+        return airportsService.updateAirport(airport);
+    }
+}
