@@ -9,4 +9,5 @@ import pl.zzpwj.model.Airport;
 // korzystałem, końcowo raczej nie będzie wykorzystywana.
 @Repository
 public interface AirportsRepository extends JpaRepository<Airport, Long> {
+    Airport findByNameIgnoreCase(String name);
 }

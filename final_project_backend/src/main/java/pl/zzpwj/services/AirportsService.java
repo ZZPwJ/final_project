@@ -22,6 +22,10 @@ public class AirportsService {
         return airportsRepository.findById(id).orElse(null);
     }
 
+    public Airport getAirportByName(String name) {
+        return airportsRepository.findByNameIgnoreCase(name);
+    }
+
     public Airport updateAirport(Airport airport) {
         Airport updatedAirport = airportsRepository.save(airport);
         return updatedAirport;
