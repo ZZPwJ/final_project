@@ -3,6 +3,7 @@ package pl.zzpwj.services;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
+import pl.zzpwj.model.Flight;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,7 +14,7 @@ import java.net.http.HttpResponse;
 @Service
 public class FlightService {
 
-    public JsonNode getCheapestFlightInSpecifiedDate(String outboundDate, String inboundDate,
+    public Flight getCheapestFlightInSpecifiedDate(String outboundDate, String inboundDate,
                                                  String originPlace, String destinationPlace)
             throws IOException, InterruptedException {
 
@@ -30,7 +31,8 @@ public class FlightService {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode node = objectMapper.readTree(response.body());
 
-        return node.get("Quotes").get(0);
+        Flight cheapestFlight = objectMapper.treeToValue(node.get("Quotes").get(0), Flight.class);
+        return cheapestFlight;
 
     }
 }

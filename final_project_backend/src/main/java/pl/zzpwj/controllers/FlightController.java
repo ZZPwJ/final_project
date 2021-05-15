@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import pl.zzpwj.model.Flight;
 import pl.zzpwj.services.FlightService;
 
 import java.io.IOException;
@@ -25,8 +26,8 @@ public class FlightController {
     // szukamy lotu w jedną stronę. Końcowo datę można "wyciągnąć" z eventu, natomiast nazwy lotnisk z listy lotnisk z
     // danego miasta. Przykładowy endpoint: http://localhost:8080/flights/anytime/anytime/SFO-sky/JFK-sky
     @GetMapping(path = "/flights/{outboundDate}/{inboundDate}/{originPlace}/{destinationPlace}")
-    public JsonNode getCheapestFlightInSpecifiedDate(@PathVariable String outboundDate, @PathVariable String inboundDate,
-                                                     @PathVariable String originPlace, @PathVariable String destinationPlace)
+    public Flight getCheapestFlightInSpecifiedDate(@PathVariable String outboundDate, @PathVariable String inboundDate,
+                                                   @PathVariable String originPlace, @PathVariable String destinationPlace)
             throws IOException, InterruptedException {
         return flightService.getCheapestFlightInSpecifiedDate(outboundDate, inboundDate, originPlace, destinationPlace);
 
