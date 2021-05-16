@@ -23,9 +23,9 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    @GetMapping(path="/hotels/{city}")
-    public String getHotels(@PathVariable String city) throws IOException, InterruptedException {
-
-        return hotelService.getHotelList(city);
-    }
+//    @GetMapping(path="/hotels/{city}")
+//    public String getHotels(@PathVariable String city) throws IOException, InterruptedException {
+//
+//        return hotelService.getHotelList(city);
+//    }
 }
