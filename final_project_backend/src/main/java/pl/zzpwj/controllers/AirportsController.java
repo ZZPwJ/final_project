@@ -32,6 +32,11 @@ public class AirportsController {
         return airportsService.getAirport(id);
     }
 
+    @GetMapping(path = "/airports/name/{name}", produces = APPLICATION_JSON_VALUE)
+    public Airport getAirportByName(@PathVariable String name) {
+        return airportsService.getAirportByName(name);
+    }
+
     @PostMapping(path = "/airports", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public Airport addAirport(@RequestBody Airport airport) {
         return airportsService.addAirport(airport);
