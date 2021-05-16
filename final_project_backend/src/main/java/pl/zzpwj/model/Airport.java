@@ -10,7 +10,7 @@ import javax.persistence.Id;
 // Klasa na razie przykładowa, ma niewiele wspólnego z rzeczywistoscia,
 // stworzyłem po prostu szkielet i sprawdziłem jak działa. Z bazy H2
 // korzystałem, końcowo raczej nie będzie wykorzystywana.
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
