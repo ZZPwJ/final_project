@@ -24,10 +24,10 @@ import java.util.stream.Collectors;
 @Service
 public class AirportsService {
 
-    public List<SkyscannerAirport> getAllCountries(String city_id) throws IOException, InterruptedException {
+    public List<SkyscannerAirport> getAllCountries(String city_name) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/" +
-                        "autosuggest/v1.0/UK/GBP/en-GB/?query=" + city_id))
+                        "autosuggest/v1.0/UK/GBP/en-GB/?query=" + city_name))
                 .header("x-rapidapi-key", "0db4d58d1fmsh1ee483e08d7f748p154a84jsnd56ea33d9991")
                 .header("x-rapidapi-host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
@@ -40,10 +40,11 @@ public class AirportsService {
         List<SkyscannerAirport> airports = objectMapper.convertValue(node.get("Places"), new TypeReference<>() {
         });
 
+        return airports;
 
-        return airports.stream()
-                .filter(airport -> airport.getCityId().equals(city_id))
-                .collect(Collectors.toList());
+//        return airports.stream()
+//                .filter(airport -> airport.getPlaceName().equalsIgnoreCase(city_name))
+//                .collect(Collectors.toList());
     }
 
     @JsonIgnoreProperties

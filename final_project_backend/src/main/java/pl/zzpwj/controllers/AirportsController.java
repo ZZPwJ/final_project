@@ -21,10 +21,10 @@ public class AirportsController {
     @Autowired
     private AirportsService airportsService;
 
-    @GetMapping(path="/airports/city/{city_id}", produces = APPLICATION_JSON_VALUE)
-    public List<SkyscannerAirport> getAllCountries(@PathVariable String city_id) {
+    @GetMapping(path="/airports/city/{city_name}", produces = APPLICATION_JSON_VALUE)
+    public List<SkyscannerAirport> getAllCountries(@PathVariable String city_name) {
         try {
-            return airportsService.getAllCountries(city_id);
+            return airportsService.getAllCountries(city_name);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return null;

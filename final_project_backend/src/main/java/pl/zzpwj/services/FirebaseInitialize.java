@@ -11,13 +11,13 @@ import pl.zzpwj.model.Firebase.User;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Objects;
 
 @Service
 public class FirebaseInitialize {
-
-    public String createUser(User user) throws FirebaseAuthException, IOException {
+    public FirebaseInitialize() throws IOException {
         File file = new File(
                 Objects.requireNonNull(getClass().getClassLoader().getResource("firebase_key.json")).getFile()
         );
@@ -29,7 +29,9 @@ public class FirebaseInitialize {
                 .build();
 
         FirebaseApp.initializeApp(options);
+    }
 
+    public String createUser(User user) throws FirebaseAuthException, IOException {
         UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                 .setEmail(user.getEmail())
                 .setEmailVerified(false)
