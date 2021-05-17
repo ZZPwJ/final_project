@@ -1,18 +1,15 @@
 package pl.zzpwj.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.zzpwj.model.Airport;
 import pl.zzpwj.model.AirportInfo;
-import pl.zzpwj.model.Attraction;
 import pl.zzpwj.model.SkyscannerAirport;
-import pl.zzpwj.repository.AirportsRepository;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -26,32 +23,6 @@ import java.util.stream.Collectors;
 // korzystałem, końcowo raczej nie będzie wykorzystywana.
 @Service
 public class AirportsService {
-
-    @Autowired
-    private AirportsRepository airportsRepository;
-
-    public Airport getAirport(long id) {
-        // tu obsluga wyjatku
-        return airportsRepository.findById(id).orElse(null);
-    }
-
-    public Airport getAirportByName(String name) {
-        return airportsRepository.findByNameIgnoreCase(name);
-    }
-
-    public Airport updateAirport(Airport airport) {
-        Airport updatedAirport = airportsRepository.save(airport);
-        return updatedAirport;
-    }
-
-    public Airport addAirport(Airport airport) {
-        Airport createdAirport = airportsRepository.save(airport);
-        return createdAirport;
-    }
-
-    public List<Airport> getAllAirports() {
-        return airportsRepository.findAll();
-    }
 
     public List<SkyscannerAirport> getAllCountries(String city_id) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
