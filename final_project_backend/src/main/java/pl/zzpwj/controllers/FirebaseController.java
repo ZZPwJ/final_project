@@ -2,10 +2,7 @@ package pl.zzpwj.controllers;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.zzpwj.model.Firebase.User;
 import pl.zzpwj.services.FirebaseInitialize;
 
@@ -25,6 +22,15 @@ public class FirebaseController {
         } catch (FirebaseAuthException | IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @GetMapping(path="/user/search/{token}")
+    public void saveSearch(@PathVariable String token) throws IOException {
+        try {
+            firebaseInitialize.saveSearch(token);
+        } catch (FirebaseAuthException e) {
+            e.printStackTrace();
         }
     }
 }
