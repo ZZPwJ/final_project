@@ -1,7 +1,10 @@
 package pl.zzpwj.model.SearchHotelsResult;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Result{
     public int id;
     public String name;
