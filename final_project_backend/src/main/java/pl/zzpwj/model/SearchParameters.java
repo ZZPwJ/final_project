@@ -9,16 +9,24 @@ public class SearchParameters {
     private String checkIn;
     private int maxPrice;
     private int minPrice;
+    private String originCity;
+    private String destinationCity;
+    //type of journal which user will input; for example "cheapest", "highest rated"
+    private String type;
 
     public SearchParameters() {
     }
 
-    public SearchParameters(int numberOfPeople, String checkOut, String checkIn, int maxPrice, int minPrice) {
+    public SearchParameters(int numberOfPeople, String checkOut, String checkIn, int maxPrice, int minPrice,
+                            String originCity, String destinationCity, String type) {
         this.numberOfPeople = numberOfPeople;
         this.checkOut = checkOut;
         this.checkIn = checkIn;
         this.maxPrice = maxPrice;
         this.minPrice = minPrice;
+        this.originCity = originCity;
+        this.destinationCity = destinationCity;
+        this.type = type;
     }
 
     public boolean isMaxPriceSet(){
@@ -68,5 +76,29 @@ public class SearchParameters {
 
     public void setMinPrice(int minPrice) {
         this.minPrice = minPrice;
+    }
+
+    public String getOriginCity() {
+        return originCity;
+    }
+
+    public void setOriginCity(String originCity) {
+        this.originCity = originCity;
+    }
+
+    public String getDestinationCity() {
+        return destinationCity;
+    }
+
+    public void setDestinationCity(String destinationCity) {
+        this.destinationCity = destinationCity;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
