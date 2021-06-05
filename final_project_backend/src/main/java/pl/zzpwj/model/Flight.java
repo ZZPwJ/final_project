@@ -4,17 +4,21 @@ package pl.zzpwj.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Flight {
-    public final int quoteId;
-    public final int minPrice;
-    public final boolean direct;
-    public final OutboundLeg outboundLeg;
-    public final String quoteDateTime;
+    private final int quoteId;
+    private final Integer minPrice;
+    private final boolean direct;
+    private final OutboundLeg outboundLeg;
+    private final String quoteDateTime;
+    private String originAirportIata;
+    private String destAirportIata;
 
     @JsonCreator
-    public Flight(@JsonProperty("QuoteId") int quoteId, @JsonProperty("MinPrice") int minPrice,
+    public Flight(@JsonProperty("QuoteId") int quoteId, @JsonProperty("MinPrice") Integer minPrice,
                   @JsonProperty("Direct") boolean direct, @JsonProperty("OutboundLeg") OutboundLeg outboundLeg,
                   @JsonProperty("QuoteDateTime") String quoteDateTime){
         this.quoteId = quoteId;
@@ -24,11 +28,12 @@ public class Flight {
         this.quoteDateTime = quoteDateTime;
     }
 
+    @Data
     public static final class OutboundLeg {
-        public final int[] carrierIds;
-        public final int originId;
-        public final int destinationId;
-        public final String departureDate;
+        private final int[] carrierIds;
+        private final int originId;
+        private final int destinationId;
+        private final String departureDate;
 
         @JsonCreator
         public OutboundLeg(@JsonProperty("CarrierIds") int[] carrierIds,
