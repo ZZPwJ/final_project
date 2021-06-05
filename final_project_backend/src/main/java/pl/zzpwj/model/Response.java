@@ -8,9 +8,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Response {
-    private AirportInfo airportInfo;
+    private AirportInfo originAirportInfo;
+    private AirportInfo destAirportInfo;
+    private String hotels;
     private List<Attraction> attractions;
     private Flight flight;
-    private SkyscannerAirport skyscannerAirport;
     private Weather weather;
 }

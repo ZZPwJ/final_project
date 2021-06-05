@@ -14,6 +14,8 @@ public class Flight {
     private final boolean direct;
     private final OutboundLeg outboundLeg;
     private final String quoteDateTime;
+    private String originAirportIata;
+    private String destAirportIata;
 
     @JsonCreator
     public Flight(@JsonProperty("QuoteId") int quoteId, @JsonProperty("MinPrice") Integer minPrice,
@@ -26,6 +28,7 @@ public class Flight {
         this.quoteDateTime = quoteDateTime;
     }
 
+    @Data
     public static final class OutboundLeg {
         private final int[] carrierIds;
         private final int originId;

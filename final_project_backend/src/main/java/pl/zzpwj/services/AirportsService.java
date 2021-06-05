@@ -29,6 +29,7 @@ public class AirportsService {
                         "autosuggest/v1.0/UK/GBP/en-GB/?query=" + city_name))
                 .header("x-rapidapi-key", "0db4d58d1fmsh1ee483e08d7f748p154a84jsnd56ea33d9991")
                 .header("x-rapidapi-host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
+//                .header("includeCities", "false")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
@@ -51,8 +52,11 @@ public class AirportsService {
         for (int i = 0; i < placesNode.size(); i++) {
             JsonNode arrayElement = placesNode.get(i);
             String cityId = arrayElement.get("CityId").textValue();
+            // musimy odrzucić te elementy w ktorych placeId == cityId, bo jest to w skyscannerze miasto, a
+            // nie lotnisko (np LOND-sky jako placeId i jako cityId)
+            String placeId = arrayElement.get("PlaceId").textValue();
             String convertedCityName = (city_name.substring(0, 4).toUpperCase()) + "-sky";
-            if (cityId.equals(convertedCityName)) {
+            if (cityId.equals(convertedCityName) && !placeId.equals(convertedCityName)) {
                 airports.add(objectMapper.convertValue(arrayElement, new TypeReference<>() {
                 }));
             }

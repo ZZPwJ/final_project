@@ -20,20 +20,28 @@ import java.util.Map;
 @RestController
 public class SearchController {
 
-    private final HotelService hotelService;
     private final SearchService searchService;
     private SearchParameters searchParameters;
 
+    // przykladowy endpoint: http://localhost:8080/search parametry do POST:
+    // numberOfPeople : 3
+    // checkOut : "anytime"
+    // checkIn : "anytime"
+    // maxPrice : 8000
+    // minPrice : 200
+    // originCity : "London"
+    // destinationCity : "Stockholm"
+    // type : "cheapest"
+    // maxPriceSet : true
+    // minPriceSet : true
+
     @Autowired
-    public SearchController(HotelService hotelService, SearchService searchService, FlightService flightService,
-                            AirportsService airportsService) {
-        this.hotelService = hotelService;
+    public SearchController(SearchService searchService) {
         this.searchService = searchService;
     }
 
     @PostMapping(value="/search")
     public Response setSearchParameters(@RequestBody SearchParameters searchParameters) throws IOException, InterruptedException {
-//        hotelService.setSearchParameters(searchParameters);
         searchService.setSearchParameters(searchParameters);
         this.searchParameters = searchParameters;
         return searchService.getResponseForSpecifiedType();
@@ -66,7 +74,7 @@ public class SearchController {
         if(updates.containsKey("type")){
             searchParameters.setDestinationCity((String) updates.get("type"));
         }
-        hotelService.setSearchParameters(searchParameters);
+        searchService.setSearchParameters(searchParameters);
         return new ResponseEntity<SearchParameters>(HttpStatus.NO_CONTENT);
     }
 
