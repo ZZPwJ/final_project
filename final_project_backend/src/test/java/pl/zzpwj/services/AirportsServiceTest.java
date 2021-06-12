@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AirportsServiceTest {
 
     AirportsService airportsService;
-    String jsonPlaces, jsonPlacesWithDifferentCityId;
+    String jsonPlaces;
     ObjectMapper mapper;
     JsonNode node;
 
@@ -42,10 +42,7 @@ class AirportsServiceTest {
                 "\"CountryName\":\"Canada\"},{\"PlaceId\":\"ELS-sky\",\"PlaceName\":\"East London\"," +
                 "\"CountryId\":\"ZA-sky\",\"RegionId\":\"\",\"CityId\":\"ELSA-sky\",\"CountryName\":\"South Africa\"}]}";
 
-        jsonPlacesWithDifferentCityId = "{\"Places\":[{\"PlaceId\":\"LHR-sky\",\"PlaceName\":\"London Heathrow\",\"CountryId\":\"UK-sky\"," +
-                "\"RegionId\":\"\",\"CityId\":\"LOND-sky\",\"CountryName\":\"United Kingdom\"}," +
-                "{\"PlaceId\":\"ELS-sky\",\"PlaceName\":\"East London\"," +
-                "\"CountryId\":\"ZA-sky\",\"RegionId\":\"\",\"CityId\":\"ELSA-sky\",\"CountryName\":\"South Africa\"}]}";
+
 
         mapper = new ObjectMapper();
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
@@ -54,6 +51,10 @@ class AirportsServiceTest {
 
     @Test
     void getAirportsWithProperCityIdDifferentCitiesIdTest() {
+        String jsonPlacesWithDifferentCityId = "{\"Places\":[{\"PlaceId\":\"LHR-sky\",\"PlaceName\":\"London Heathrow\",\"CountryId\":\"UK-sky\"," +
+                "\"RegionId\":\"\",\"CityId\":\"LOND-sky\",\"CountryName\":\"United Kingdom\"}," +
+                "{\"PlaceId\":\"ELS-sky\",\"PlaceName\":\"East London\"," +
+                "\"CountryId\":\"ZA-sky\",\"RegionId\":\"\",\"CityId\":\"ELSA-sky\",\"CountryName\":\"South Africa\"}]}";
         try {
             node = mapper.readTree(jsonPlacesWithDifferentCityId);
         } catch (JsonProcessingException e) {
@@ -73,7 +74,36 @@ class AirportsServiceTest {
         List<SkyscannerAirport> actualAirports = airportsService.getAirportsWithProperCityId("London", mapper, node);
 
         assertTrue(expectedAirports.equals(actualAirports));
-
-
     }
+
+    //We reject Airports with same placeId as CityId in getAirportsWithProperCityId
+    @Test
+    void getAirportsWithProperCityIdPlaceIdSameAsCityIdTest() {
+
+        String jsonPlacesWithSamePlaceIdAsCityId = "{\"Places\":[{\"PlaceId\":\"LHR-sky\",\"PlaceName\":\"London Heathrow\",\"CountryId\":\"UK-sky\"," +
+                "\"RegionId\":\"\",\"CityId\":\"LOND-sky\",\"CountryName\":\"United Kingdom\"}," +
+                "{\"PlaceId\":\"LOND-sky\",\"PlaceName\":\"London\",\"CountryId\":\"UK-sky\"," +
+                "\"RegionId\":\"\",\"CityId\":\"LOND-sky\",\"CountryName\":\"United Kingdom\"}]}";
+        try {
+            node = mapper.readTree(jsonPlacesWithSamePlaceIdAsCityId);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        SkyscannerAirport expectedAirport = new SkyscannerAirport();
+        expectedAirport.setPlaceId("LHR-sky");
+        expectedAirport.setPlaceName("London Heathrow");
+        expectedAirport.setCountryId("UK-sky");
+        expectedAirport.setRegionId("");
+        expectedAirport.setCityId("LOND-sky");
+        expectedAirport.setCountryName("United Kingdom");
+
+        List<SkyscannerAirport> expectedAirports = new ArrayList<>();
+        expectedAirports.add(expectedAirport);
+
+        List<SkyscannerAirport> actualAirports = airportsService.getAirportsWithProperCityId("London", mapper, node);
+
+        assertTrue(expectedAirports.equals(actualAirports));
+    }
+
+
 }
