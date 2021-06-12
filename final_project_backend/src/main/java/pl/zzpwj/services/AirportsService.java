@@ -45,7 +45,7 @@ public class AirportsService {
 
 //        porównujemy, czy np. przy wpisaniu Vienna lotniska maja cityId VIEN-sky, bo jeśli nie sprawdzimy
 //        to przy wpisaniu Vienna znajduje np dla Wietnamu.a
-    private List<SkyscannerAirport> getAirportsWithProperCityId(String city_name, ObjectMapper objectMapper,
+    public List<SkyscannerAirport> getAirportsWithProperCityId(String city_name, ObjectMapper objectMapper,
                                                                 JsonNode node) {
         JsonNode placesNode = node.get("Places");
         List<SkyscannerAirport> airports = new ArrayList<>();
