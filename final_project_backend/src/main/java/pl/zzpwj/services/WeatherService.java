@@ -28,4 +28,12 @@ public class WeatherService {
 
         return objectMapper.treeToValue(node.get("forecast").get("forecastday").get(0).get("day"), Weather.class);
     }
+
+
+    public Weather findWeatherForSpecifiedCityAndDate(String destinationCity, String departureDate)
+            throws IOException, InterruptedException {
+        String[] convertedTable = departureDate.split("T");
+        String convertedDate = convertedTable[0];
+        return getWeatherByCityAndDate(destinationCity, convertedDate);
+    }
 }

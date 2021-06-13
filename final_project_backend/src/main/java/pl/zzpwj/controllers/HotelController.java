@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import pl.zzpwj.model.Hotel;
 import pl.zzpwj.services.HotelService;
 
 import java.io.IOException;
@@ -25,7 +26,13 @@ public class HotelController {
 
     @GetMapping(path="/hotels/{city}")
     public String getHotels(@PathVariable String city) throws IOException, InterruptedException {
+        return "";
+       // return hotelService.getHotelList(city).toString();
+    }
 
-        return hotelService.getHotelList(city);
+    @GetMapping(path = "/hotel")
+    public Hotel getCheapestHotel() throws IOException, InterruptedException {
+    //    return hotelService.findCheapestHotelMatch();
+        return null;
     }
 }

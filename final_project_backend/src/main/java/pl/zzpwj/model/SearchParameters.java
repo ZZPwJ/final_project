@@ -1,16 +1,22 @@
 package pl.zzpwj.model;
 
+import lombok.Data;
 import org.springframework.context.annotation.Bean;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
+@Data
 public class SearchParameters {
-    private int numberOfPeople;
-    private String checkOut;
-    private String checkIn;
-    private int maxPrice;
-    private int minPrice;
-    private String originCity;
-    private String destinationCity;
+    static private int numberOfPeople;
+    static private String checkOut;
+    static private String checkIn;
+    static private int maxPrice;
+    static private int minPrice;
+    static private String originCity;
+    static private String destinationCity;
     //type of journal which user will input; for example "cheapest", "highest rated"
     private String type;
 
@@ -37,6 +43,21 @@ public class SearchParameters {
     public boolean isMinPriceSet(){
         if(minPrice > 0) return true;
         else return false;
+    }
+
+    public void setDateBasedOnFlight(String arrive) throws ParseException {
+        checkIn = arrive.substring(0, 10);
+        if (checkOut.equals("anytime")) {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date arriveDate = formatter.parse(checkIn);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(arriveDate);
+            int weekStay = 7;
+            calendar.add(Calendar.DAY_OF_YEAR, weekStay);
+            checkOut = formatter.format(calendar.getTime());
+            System.out.println("new checkout date " + checkOut);
+        }
+
     }
     public int getNumberOfPeople() {
         return numberOfPeople;
