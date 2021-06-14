@@ -14,5 +14,6 @@ public class Response {
     private Hotel hotel;
     private List<Landmark> landmarks;
     private Flight flight;
+    private Flight returnFlight;
     private Weather weather;
 }
