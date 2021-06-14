@@ -45,8 +45,9 @@ public class SearchParameters {
         else return false;
     }
 
-    public void setDateBasedOnFlight(String arrive) throws ParseException {
+    public void setDateBasedOnFlight(String arrive, String leaveDate) throws ParseException {
         checkIn = arrive.substring(0, 10);
+        checkOut = leaveDate.substring(0, 10);
         if (checkOut.equals("anytime")) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date arriveDate = formatter.parse(checkIn);

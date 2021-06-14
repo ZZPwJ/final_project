@@ -68,12 +68,11 @@ public class FlightService {
             response.setFlight(findCheapestDirectFlight(0));
             response.setReturnFlight(findCheapestDirectFlight(1));
         }
-        if (searchParameters.getCheckIn().equals("anytime")) {
-            searchParameters.setDateBasedOnFlight(response.getFlight().getOutboundLeg().getDepartureDate());
+        if (searchParameters.getCheckIn().equals("anytime") || searchParameters.getCheckOut().equals("anytime")) {
+            searchParameters.setDateBasedOnFlight(response.getFlight().getOutboundLeg().getDepartureDate(),
+                                                response.getReturnFlight().getOutboundLeg().getDepartureDate());
         }
-        if (searchParameters.getCheckOut().equals("anytime")) {
-            searchParameters.setDateBasedOnFlight(response.getReturnFlight().getOutboundLeg().getDepartureDate());
-        }
+
         response.setOriginAirportInfo(findAirportInfoForSpecifiedIata(response.getFlight().getOriginAirportIata()));
         response.setDestAirportInfo(findAirportInfoForSpecifiedIata(response.getFlight().getDestAirportIata()));
 //            response.setHotels(findHotelsForDestCity(searchParameters.getDestinationCity()));
