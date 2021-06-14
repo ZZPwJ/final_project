@@ -59,7 +59,7 @@ public class HotelService {
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode node = objectMapper.readTree(response.body());
-        System.out.println("destination id is: " + node.get("suggestions").get(0).get("entities").get(0).get("destinationId").asInt());
+//        System.out.println("destination id is: " + node.get("suggestions").get(0).get("entities").get(0).get("destinationId").asInt());
         return node.get("suggestions").get(0).get("entities").get(0).get("destinationId").asInt();
     }
 
