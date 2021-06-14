@@ -2,6 +2,7 @@ package pl.zzpwj.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.zzpwj.model.SearchHotelsResult.Landmark;
 
 import java.util.List;
 
@@ -10,8 +11,8 @@ import java.util.List;
 public class Response {
     private AirportInfo originAirportInfo;
     private AirportInfo destAirportInfo;
-    private String hotels;
-    private List<Attraction> attractions;
+    private Hotel hotel;
+    private List<Landmark> landmarks;
     private Flight flight;
     private Weather weather;
 }
