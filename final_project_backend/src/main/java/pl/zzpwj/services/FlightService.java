@@ -58,7 +58,13 @@ public class FlightService {
     }
 
     public Response setResponseParameters(Response response) throws IOException, InterruptedException, ParseException {
-        response.setFlight(findCheapestFlight());
+        if (searchParameters.getType().equals("cheapest")) {
+            response.setFlight(findCheapestFlight());
+        } else if (searchParameters.getType().equals("premium")) {
+            response.setFlight(findExpensiveDirectFlight());
+        } else {
+            response.setFlight(findCheapestDirectFlight());
+        }
         response.setOriginAirportInfo(findAirportInfoForSpecifiedIata(response.getFlight().getOriginAirportIata()));
         response.setDestAirportInfo(findAirportInfoForSpecifiedIata(response.getFlight().getDestAirportIata()));
 //            response.setHotels(findHotelsForDestCity(searchParameters.getDestinationCity()));
@@ -77,6 +83,36 @@ public class FlightService {
 
     private Flight findCheapestFlight() throws IOException, InterruptedException, ParseException {
         System.out.println(searchParameters.getOriginCity());
+        List<Flight> allFlights = findAllFlights();
+        Flight cheapestFlightFromAllFlights = Collections.min(allFlights, new FlightComparator());
+        if(searchParameters.getCheckIn().equals("anytime")){
+            searchParameters.setDateBasedOnFlight(cheapestFlightFromAllFlights.getOutboundLeg().getDepartureDate());
+        }
+        return cheapestFlightFromAllFlights;
+    }
+
+    private Flight findCheapestDirectFlight() throws IOException, ParseException, InterruptedException {
+        List<Flight> allFlights = findAllFlights();
+        List<Flight> directFlights = getDirectFlights(allFlights);
+        Flight cheapestDirectFlight = Collections.min(directFlights, new FlightComparator());
+        if(searchParameters.getCheckIn().equals("anytime")){
+            searchParameters.setDateBasedOnFlight(cheapestDirectFlight.getOutboundLeg().getDepartureDate());
+        }
+        return cheapestDirectFlight;
+    }
+
+
+    private Flight findExpensiveDirectFlight() throws IOException, ParseException, InterruptedException {
+        List<Flight> allFlights = findAllFlights();
+        List<Flight> directFlights = getDirectFlights(allFlights);
+        Flight mostExpensiveFlight = Collections.max(directFlights, new FlightComparator());
+        if(searchParameters.getCheckIn().equals("anytime")){
+            searchParameters.setDateBasedOnFlight(mostExpensiveFlight.getOutboundLeg().getDepartureDate());
+        }
+        return mostExpensiveFlight;
+    }
+
+    private List<Flight> findAllFlights() throws IOException, InterruptedException, ParseException {
         List<SkyscannerAirport> originAirports = airportsService.getAllCountries(searchParameters.getOriginCity());
         List<SkyscannerAirport> destAirports = airportsService.getAllCountries(searchParameters.getDestinationCity());
 
@@ -95,10 +131,17 @@ public class FlightService {
                 }
             }
         }
-        Flight cheapestFlightFromAllFlights = Collections.min(allFlights, new FlightComparator());
-        if(searchParameters.getCheckIn().equals("anytime")){
-            searchParameters.setDateBasedOnFlight(cheapestFlightFromAllFlights.getOutboundLeg().getDepartureDate());
-        }
-        return cheapestFlightFromAllFlights;
+        return allFlights;
     }
+
+    private List<Flight> getDirectFlights(List<Flight> allFlights) {
+        List<Flight> directFlights = new ArrayList<>();
+        for (Flight flight : allFlights) {
+            if (flight.isDirect()) {
+                directFlights.add(flight);
+            }
+        }
+        return directFlights;
+    }
+
 }
