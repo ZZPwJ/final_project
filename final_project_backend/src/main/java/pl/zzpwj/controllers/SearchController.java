@@ -13,6 +13,7 @@ import pl.zzpwj.services.SearchService;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -54,6 +55,12 @@ public class SearchController {
         user.addSearchResponse(response);
         return response;
     }
+
+    @GetMapping(path = "/searchhistory")
+    public List<Response> getUserHistorySearch(){
+        return user.getSearchHistory();
+    }
+
     @PostMapping(value="/search")
     public ResponseEntity<SearchParameters> setSearchParameters(@RequestBody SearchParameters searchParameters) throws IOException, InterruptedException {
         searchService.setSearchParameters(searchParameters);
