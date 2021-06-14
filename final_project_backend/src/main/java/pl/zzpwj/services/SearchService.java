@@ -28,6 +28,7 @@ public class SearchService {
         this.hotelService = hotelService;
         this.weatherService = weatherService;
     }
+
     public SearchParameters getSearchParameters() {
         return searchParameters;
     }
@@ -38,18 +39,8 @@ public class SearchService {
 
     public Response getResponseForSpecifiedType() throws IOException, InterruptedException, ParseException {
         Response response = new Response();
-        if(searchParameters.getType().equals("cheapest")){ //returns cheapest everything
-            response = flightService.setResponseParameters(response);
-            response = hotelService.setResponseParameters(response);
-
-        //todo: dla kazdej metody call odpowiednie znajdywanie lotow (dla hotelu zrobilam to wbudowane w metode)
-        } else if(searchParameters.getType().equals("premium")){ //returns most expensive stuff
-            response = hotelService.setResponseParameters(response);
-
-        } else {
-            response = hotelService.setResponseParameters(response);
-
-        }
+        response = flightService.setResponseParameters(response);
+        response = hotelService.setResponseParameters(response);
         return response;
     }
 

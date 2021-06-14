@@ -26,6 +26,9 @@ public class WeatherService {
         objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         JsonNode node = objectMapper.readTree(response.body());
 
+        if (node.get("forecast").get("forecastday").get(0) == null) {
+            return null;
+        }
         return objectMapper.treeToValue(node.get("forecast").get("forecastday").get(0).get("day"), Weather.class);
     }
 
