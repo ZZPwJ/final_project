@@ -54,9 +54,7 @@ class AttractionTest {
     }
 
     @Test
-    void getAbstractTest() {
-        assertEquals(null, attraction.getAbstract());
-    }
+    void getAbstractTest() { assertNull(attraction.getAbstract()); }
 
     @Test
     void getCategoriesTest() {
