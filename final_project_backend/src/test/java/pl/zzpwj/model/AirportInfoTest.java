@@ -5,11 +5,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AirportInfoTest {
@@ -35,9 +34,6 @@ class AirportInfoTest {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
-
-
     }
 
     @Test
@@ -71,10 +67,7 @@ class AirportInfoTest {
     }
 
     @Test
-    void getStreetTest() {
-        assertEquals("", airportInfo.getStreet());
-
-    }
+    void getStreetTest() { assertEquals("", airportInfo.getStreet()); }
 
     @Test
     void getCityTest() {
@@ -82,10 +75,7 @@ class AirportInfoTest {
     }
 
     @Test
-    void getCountyTest() {
-        assertEquals("", airportInfo.getCounty());
-
-    }
+    void getCountyTest() { assertEquals("", airportInfo.getCounty()); }
 
     @Test
     void getStateTest() {

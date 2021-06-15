@@ -42,11 +42,8 @@ class AirportsServiceTest {
                 "\"CountryName\":\"Canada\"},{\"PlaceId\":\"ELS-sky\",\"PlaceName\":\"East London\"," +
                 "\"CountryId\":\"ZA-sky\",\"RegionId\":\"\",\"CityId\":\"ELSA-sky\",\"CountryName\":\"South Africa\"}]}";
 
-
-
         mapper = new ObjectMapper();
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-
     }
 
     @Test
@@ -102,7 +99,7 @@ class AirportsServiceTest {
 
         List<SkyscannerAirport> actualAirports = airportsService.getAirportsWithProperCityId("London", mapper, node);
 
-        assertTrue(expectedAirports.equals(actualAirports));
+        assertEquals(actualAirports, expectedAirports);
     }
 
 
