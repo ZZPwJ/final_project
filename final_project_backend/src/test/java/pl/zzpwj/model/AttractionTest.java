@@ -31,7 +31,6 @@ class AttractionTest {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
     }
 
     @Test
