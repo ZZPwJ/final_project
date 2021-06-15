@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.springframework.stereotype.Service;
 import pl.zzpwj.model.AirportInfo;
 import pl.zzpwj.model.SkyscannerAirport;
@@ -16,7 +15,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -37,10 +35,6 @@ public class AirportsService {
         objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         JsonNode node = objectMapper.readTree(response.body());
         return getAirportsWithProperCityId(city_name, objectMapper, node);
-
-//        return airports.stream()
-//                .filter(airport -> airport.getPlaceName().equalsIgnoreCase(city_name))
-//                .collect(Collectors.toList());
     }
 
 //        porównujemy, czy np. przy wpisaniu Vienna lotniska maja cityId VIEN-sky, bo jeśli nie sprawdzimy
