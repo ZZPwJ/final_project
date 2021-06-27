@@ -1,6 +1,5 @@
 package pl.zzpwj.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +8,7 @@ import pl.zzpwj.model.Flight;
 import pl.zzpwj.services.FlightService;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 @RestController
 public class FlightController {
@@ -28,7 +28,7 @@ public class FlightController {
     @GetMapping(path = "/flights/{outboundDate}/{inboundDate}/{originPlace}/{destinationPlace}")
     public Flight getCheapestFlightInSpecifiedDate(@PathVariable String outboundDate, @PathVariable String inboundDate,
                                                    @PathVariable String originPlace, @PathVariable String destinationPlace)
-            throws IOException, InterruptedException {
+            throws IOException, InterruptedException, ParseException {
         return flightService.getCheapestFlightInSpecifiedDate(outboundDate, inboundDate, originPlace, destinationPlace);
 
     }
