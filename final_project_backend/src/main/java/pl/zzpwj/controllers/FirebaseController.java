@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.zzpwj.model.Firebase.User;
+import pl.zzpwj.model.SearchParameters;
 import pl.zzpwj.services.FirebaseInitialize;
 
 import java.io.IOException;
@@ -25,10 +26,10 @@ public class FirebaseController {
         }
     }
 
-    @GetMapping(path="/user/search/{token}")
-    public void saveSearch(@PathVariable String token) throws IOException {
+    @PostMapping(path="/user/search/{token}")
+    public void saveSearch(@PathVariable String token, @RequestBody SearchParameters searchParameters) {
         try {
-            firebaseInitialize.saveSearch(token);
+            firebaseInitialize.saveSearch(token, searchParameters);
         } catch (FirebaseAuthException e) {
             e.printStackTrace();
         }
