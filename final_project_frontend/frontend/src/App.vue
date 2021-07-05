@@ -1,18 +1,15 @@
 <template>
-  <StartWindow />
-  <HelloWorld />
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import StartWindow from './components/StartWindow.vue'
-import HelloWorld from './components/HelloWorld.vue'
 
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    StartWindow
   }
 }
 </script>

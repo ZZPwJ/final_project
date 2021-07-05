@@ -9,22 +9,21 @@
                 <form>
                     <div class="input_field">
                         <label for="login_field">Login:</label>
-                        <input type="text" id="login_field" v-model="signUpData.login" /><br/>
+                        <input type="text" id="login_field" v-model="user" /><br/>
                     </div>
                     <div class="input_field">
                         <label for="email_field">Email:</label>
-                        <input type="email" id="email_field" class="validate" v-model="signUpData.email" /><br/>
+                        <input type="email" id="email_field" class="validate" /><br/>
                     </div>
                     <div class="input_field">
                         <label for="password_field">Password:</label>
-                        <input type="password" id="password_field" v-model="signUpData.password" /><br/>
+                        <input type="password" id="password_field" /><br/>
                     </div>
                     <div>
                         <label for="password2_field">Repeat password:</label>
                         <input type="password" id="password2_field" />
                     </div>
                     <a v-on:click="registerUser()" class="waves-effect waves-light btn">Register</a>
-                    <a v-on:click="this.$router.push('/registration')" class="waves-effect waves-light btn">Register</a>
                 </form>
             </div>
         </div>
@@ -35,18 +34,20 @@
 <script>
 import axios from 'axios';
 
-export default {
 
+export default {
     methods: {
         verifyUser() {
             axios.post('', ).then()
         },
         registerUser() {
             axios.post('http://localhost:8080/user', {
-                email: this.signUpData.email,
-                password: this.signUpData.password,
-                displayName: this.signUpData.login
-            }).then((response) => console.log(response));
+                email: "fj@gmail.com",
+                password: "hahajio",
+                displayName: "amamadsda"
+            }).then((response) => {
+                console.log(response);
+            });
         }
     },
     data: function() {

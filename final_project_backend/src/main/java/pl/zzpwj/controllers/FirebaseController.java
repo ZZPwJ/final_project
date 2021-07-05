@@ -16,9 +16,11 @@ public class FirebaseController {
     @Autowired
     FirebaseInitialize firebaseInitialize;
 
+    @CrossOrigin
     @PostMapping(path="/user", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public String createUser(@RequestBody User user) {
         try {
+            System.out.println("ABCCDA");
             return firebaseInitialize.createUser(user);
         } catch (FirebaseAuthException | IOException e) {
             e.printStackTrace();
